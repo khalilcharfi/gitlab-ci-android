@@ -4,7 +4,7 @@
 # https://hub.docker.com/r/showcheap/gitlab-ci-android/
 #
 
-FROM openjdk:9
+FROM circleci/openjdk:9.0.4-12-jdk
 
 ENV ANDROID_HOME /opt/android-sdk-linux
 
