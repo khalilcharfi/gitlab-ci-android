@@ -1,10 +1,13 @@
 #
 # GitLab CI: Android v0.2
 #
-# https://hub.docker.com/r/showcheap/gitlab-ci-android/
+# https://hub.docker.com/r/khalilcharfi/gitlab-ci-android/
 #
 
 FROM openjdk:8
+MAINTAINER Khalil Charfi <khalilcharfi8@gmail.com>
+
+ENV VERSION_TOOLS 4333796
 
 ENV ANDROID_HOME /opt/android-sdk-linux
 
@@ -13,7 +16,7 @@ ENV ANDROID_HOME /opt/android-sdk-linux
 
 RUN mkdir -p ${ANDROID_HOME} && \
     cd ${ANDROID_HOME} && \
-    wget -q https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O android_tools.zip && \
+    wget -q https://dl.google.com/android/repository/sdk-tools-linux-${VERSION_TOOLS}.zip -O android_tools.zip && \
     unzip android_tools.zip && \
     rm android_tools.zip
 
@@ -53,10 +56,44 @@ RUN yes | sdkmanager \
     "add-ons;addon-google_apis-google-22"
 
 # Download and install Google Cloud SDK
-RUN wget -nv  https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz 
-RUN tar -zxvf google-cloud-sdk.tar.gz && ./google-cloud-sdk/install.sh --usage-reporting=false --path-update=true 
+#RUN wget -nv  https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz 
+#RUN tar -zxvf google-cloud-sdk.tar.gz && ./google-cloud-sdk/install.sh --usage-reporting=false --path-update=true 
 # Adding the package path to local
-ENV GCLOUD_HOME "/google-cloud-sdk"
-ENV PATH "$PATH:${GCLOUD_HOME}/bin"
-RUN echo y | gcloud --quiet components update
-RUN echo y | gcloud components install beta
+#ENV GCLOUD_HOME "/google-cloud-sdk"
+#ENV PATH "$PATH:${GCLOUD_HOME}/bin"
+#RUN echo y | gcloud --quiet components update
+#RUN echo y | gcloud components install beta
+
+RUN locale-gen en_US.UTF-8
+
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
+
+RUN curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash \
+ && rbenv install 2.6.6 \
+ && rbenv global 2.6.6 \
+ && rbenv init -
+
+ENV RUBYLIB "/root/.gem/ruby/2.6.0"
+
+RUN mkdir -p /bundle-ruby/
+
+ADD Gemfile /bundle-ruby/
+
+RUN gem install bundler \
+ && gem install builder -v 3.2.2 \
+ && gem install tilt -v 2.0.10 \
+ && gem install activesupport -v 6.0.3.3 \
+ && gem install rubysl-pathname \
+ && gem install activesupport-core-ext 
+
+RUN cd /bundle-ruby \
+ && bundle install \
+ && bundle update --bundler \
+ && cd /
+
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+&& apt-get install -y nodejs \
+&& npm install -g --unsafe-perm=true --allow-root \
+&& chmod +x -R /root/.npm \
+&& npm install -g @angular/cli \
+&& npm install -g @ionic/cli
