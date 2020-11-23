@@ -47,7 +47,7 @@ RUN mkdir -p $ANDROID_SDK_ROOT/licenses/ \
  && echo "84831b9409646a918e30573bab4c9c91346d8abd\n504667f4c0de7af1a06de9f4b1727b84351f2910" > $ANDROID_SDK_ROOT/licenses/android-sdk-preview-license \
  && yes | ${ANDROID_SDK_ROOT}/cmdline-tools/tools/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --licenses >/dev/null
 
-ADD packages.txt /sdk
+#ADD packages.txt /sdk
 RUN mkdir -p /root/.android \
  && touch /root/.android/repositories.cfg \
  && ${ANDROID_SDK_ROOT}/cmdline-tools/tools/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --update
