@@ -5,7 +5,6 @@
 #
 
 FROM openjdk:8
-LABEL Khalil Charfi <khalilcharfi8@gmail.com>
 
 ENV VERSION_TOOLS 4333796
 
