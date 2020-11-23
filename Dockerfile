@@ -50,11 +50,10 @@ RUN yes | sdkmanager \
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" \
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.1" \
     "add-ons;addon-google_apis-google-23" \
-    "add-ons;addon-google_apis-google-22"
-
- && touch /root/.android/repositories.cfg \
- && ${ANDROID_SDK_ROOT}/cmdline-tools/tools/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --update \
- && ${ANDROID_SDK_ROOT}/cmdline-tools/tools/bin/sdkmanager --package_file=/sdk/packages.txt
+    "add-ons;addon-google_apis-google-22" \
+    && touch /root/.android/repositories.cfg \
+    && ${ANDROID_SDK_ROOT}/cmdline-tools/tools/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --update \
+    && ${ANDROID_SDK_ROOT}/cmdline-tools/tools/bin/sdkmanager --package_file=/sdk/packages.txt
 
 ENV PATH "$PATH:/usr/bin/gcc"
 
