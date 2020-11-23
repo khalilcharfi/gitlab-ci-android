@@ -86,4 +86,5 @@ test:
 
 Change [package-name] to your package name and [test-class] to your testing class.
 This example will record the screen, if the tests fail it will upload the video and the test log.
+
 We use this in combination with the Espresso testing framework.
