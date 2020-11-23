@@ -1,7 +1,7 @@
 #
-# GitLab CI: Android v0.2
+# GitLab CI: Ionic (Capacitor) v0.1
 #
-# https://hub.docker.com/r/khalilcharfi/gitlab-ci-android/
+# https://hub.docker.com/r/khalilcharfi/gitlab-ci-ionic/
 #
 
 FROM openjdk:8
