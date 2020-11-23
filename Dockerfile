@@ -5,7 +5,7 @@
 #
 
 FROM openjdk:8
-MAINTAINER Khalil Charfi <khalilcharfi8@gmail.com>
+LABEL Khalil Charfi <khalilcharfi8@gmail.com>
 
 ENV VERSION_TOOLS 4333796
 
