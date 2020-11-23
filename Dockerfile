@@ -1,5 +1,5 @@
 #
-# GitLab CI: Ionic (Capacitor) v0.1
+# GitLab CI: Ionic (Capacitor) v0.0.1
 #
 # https://hub.docker.com/r/khalilcharfi/gitlab-ci-ionic/
 #
